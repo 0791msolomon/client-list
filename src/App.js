@@ -8,8 +8,7 @@ class App extends Component {
     bID: "",
     tier: "",
     dateCreated: "",
-    companyData: "",
-    search: ""
+    companyData: ""
   };
 
   componentDidMount = () => {
@@ -21,27 +20,39 @@ class App extends Component {
           let entries = Object.entries(x);
           companyData.push(entries);
         })
-        .then(() => this.setState({ companyData }));
+        .then(() => this.setState({ companyData, baseData: companyData }));
     });
   };
 
   renderCompanyData = () => {
     let { companyData } = this.state;
-    return companyData[0].map(item => {
+    return companyData[0].map((item, index) => {
       return (
         <tr key={item[0]}>
+          <td className="col-sm-1">{index + 1}</td>
           <td className="col-sm-4">{item[1].name}</td>
           <td className="col-sm-4">{item[0]}</td>
-          <td className="col-sm-2">{item[1].tier}</td>
+          <td className="col-sm-1">{item[1].tier}</td>
           <td className="col-sm-2">Dec 17, 2018</td>
         </tr>
       );
     });
   };
   onChange = e => {
-    this.setState({
-      search: e.target.value
-    });
+    e.preventDefault();
+    let { companyData, baseData } = this.state;
+    let search = e.target.value;
+    let arr = [];
+    if (!search) {
+      this.setState({ companyData: baseData });
+    } else {
+      baseData[0].map(item => {
+        if (item[1].name.toUpperCase().includes(search.toUpperCase())) {
+          arr.push(item);
+        }
+      });
+      this.setState({ companyData: [arr] });
+    }
   };
 
   render() {
@@ -63,18 +74,15 @@ class App extends Component {
                 type="text"
                 className="form-control"
                 placeholder="Search"
-                value={this.state.search}
                 onChange={this.onChange}
               />
             </div>
-            <button type="submit" className="btn btn-info ">
-              Submit
-            </button>
           </form>
         </nav>
         <table className="table table-bordered table-dark">
           <thead>
             <tr>
+              <th scope="col"># </th>
               <th scope="col">Company Name</th>
               <th scope="col">Company ID</th>
               <th scope="col">Tier</th>
