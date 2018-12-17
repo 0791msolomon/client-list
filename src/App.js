@@ -166,47 +166,41 @@ class App extends Component {
           <ul>
             <li>
               <strong>Company name: </strong>
-              {this.state.activeItem ? this.state.activeItem[1].name : null}
+              {activeItem ? activeItem[1].name : null}
             </li>
             <li>
               <strong>Company ID: </strong>
-              {this.state.activeItem ? this.state.activeItem[0] : null}
+              {activeItem ? activeItem[0] : null}
             </li>
             <li>
               <strong>Location ID: </strong>
-              {this.state.activeItem
-                ? this.state.activeItem[1].locationID
-                : null}
+              {activeItem ? activeItem[1].locationID : null}
             </li>
             <li>
               <strong>Employee count: </strong>
-              {this.state.activeItem
-                ? Object.keys(this.state.activeItem[1].employees).length
-                : null}
+              {activeItem ? Object.keys(activeItem[1].employees).length : null}
             </li>
             <li>
               <strong>Client Tier: </strong>
-              {this.state.activeItem ? this.state.activeItem[1].tier : null}
+              {activeItem ? activeItem[1].tier : null}
             </li>
             <li>
               <strong>Company Address: </strong>
-              {this.state.activeItem
-                ? `${this.state.activeItem[1].address.street}, ${
-                    this.state.activeItem[1].address.state
+              {activeItem
+                ? `${activeItem[1].address.street}, ${
+                    activeItem[1].address.state
                   }`
                 : null}
             </li>
             <li>
               <strong>Company Phone: </strong>
-              {this.state.activeItem
-                ? this.state.activeItem[1].address.phonenumber
-                : null}
+              {activeItem ? activeItem[1].address.phonenumber : null}
             </li>
             <li>
               <strong>Company Website: </strong>
-              {this.state.activeItem ? (
-                <a href={this.state.activeItem[1].website} target="_blank">
-                  {this.state.activeItem[1].website}
+              {activeItem ? (
+                <a href={activeItem[1].website} target="_blank">
+                  {activeItem[1].website}
                 </a>
               ) : null}
             </li>
