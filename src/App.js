@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { auth, db } from "./Auth";
 import Modal from "react-modal";
+import moment from "moment";
+import { CSVLink } from "react-csv";
 import "./App.css";
 
 const customStyles = {
@@ -32,6 +34,7 @@ class App extends Component {
         .once("value", snap => {
           let x = snap.val();
           let entries = Object.entries(x);
+
           companyData.push(entries);
         })
         .then(() => this.setState({ companyData, baseData: companyData }));
@@ -85,12 +88,37 @@ class App extends Component {
       this.setState({ companyData: [arr] });
     }
   };
+  downloadCSV = e => {
+    e.preventDefault();
+    let arr = [];
+    let { companyData } = this.state;
+    companyData[0].reduce(function(acc, x) {
+      for (var key in x) acc[key] = x[key];
+      return acc;
+    }, {});
+    console.log(companyData);
+  };
 
   render() {
+    let { companyData } = this.state;
     let { activeItem } = this.state;
     if (!this.state.companyData) {
       return <h1>Loading...</h1>;
     }
+    let data = [];
+    companyData[0].map(item => {
+      let obj = {
+        name: item[1].name,
+        bID: item[0],
+        address: item[1].address.street,
+        city: item[1].address.city,
+        employees: Object.keys(item[1].employees).length,
+        locationID: item[1].locationID,
+        placeID: item[1].placeID,
+        website: item[1].website
+      };
+      data.push(obj);
+    });
     return (
       <div>
         <nav className="navbar navbar-default">
@@ -101,13 +129,18 @@ class App extends Component {
             className="navbar-form navbar-right navbar-search"
             role="search"
           >
-            <div className="form-group">
+            <div className=" form-group">
               <input
                 type="text"
                 className="form-control"
                 placeholder="Company Name"
                 onChange={this.onChange}
               />
+            </div>
+            <div className="form-group">
+              <CSVLink className="form-control btn-success" data={data}>
+                Download CSV
+              </CSVLink>
             </div>
           </form>
         </nav>
