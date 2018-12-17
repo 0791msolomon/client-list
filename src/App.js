@@ -172,7 +172,7 @@ class App extends Component {
             <li>
               <strong>Company Website: </strong>
               {this.state.activeItem ? (
-                <a href={this.state.activeItem[1].website}>
+                <a href={this.state.activeItem[1].website} target="_blank">
                   {this.state.activeItem[1].website}
                 </a>
               ) : null}
