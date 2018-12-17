@@ -2,6 +2,5 @@
   margin-right: 2%;
 }
 .info-row:hover {
-  opacity: 0.6;
-  color: blue;
+  font-weight: 600;
 }
