@@ -8,7 +8,8 @@ class App extends Component {
     bID: "",
     tier: "",
     dateCreated: "",
-    companyData: ""
+    companyData: "",
+    search: ""
   };
 
   componentDidMount = () => {
@@ -32,9 +33,14 @@ class App extends Component {
           <td className="col-sm-4">{item[1].name}</td>
           <td className="col-sm-4">{item[0]}</td>
           <td className="col-sm-2">{item[1].tier}</td>
-          <td className="col-sm-2">{this.state.date}</td>
+          <td className="col-sm-2">Dec 17, 2018</td>
         </tr>
       );
+    });
+  };
+  onChange = e => {
+    this.setState({
+      search: e.target.value
     });
   };
 
@@ -57,6 +63,8 @@ class App extends Component {
                 type="text"
                 className="form-control"
                 placeholder="Search"
+                value={this.state.search}
+                onChange={this.onChange}
               />
             </div>
             <button type="submit" className="btn btn-info ">
