@@ -34,7 +34,6 @@ class App extends Component {
         .once("value", snap => {
           let x = snap.val();
           let entries = Object.entries(x);
-
           companyData.push(entries);
         })
         .then(() => this.setState({ companyData, baseData: companyData }));
@@ -66,8 +65,6 @@ class App extends Component {
   };
   openModal = () => {
     this.setState({ modalOpen: true });
-    console.log(this.state.activeItem[0]);
-    console.log(this.state.activeItem[1]);
   };
   closeModal = () => {
     this.setState({ modalOpen: false });
@@ -87,16 +84,6 @@ class App extends Component {
       });
       this.setState({ companyData: [arr] });
     }
-  };
-  downloadCSV = e => {
-    e.preventDefault();
-    let arr = [];
-    let { companyData } = this.state;
-    companyData[0].reduce(function(acc, x) {
-      for (var key in x) acc[key] = x[key];
-      return acc;
-    }, {});
-    console.log(companyData);
   };
 
   render() {
