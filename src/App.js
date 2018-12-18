@@ -34,6 +34,12 @@ class App extends Component {
         .once("value", snap => {
           let x = snap.val();
           let entries = Object.entries(x);
+          // console.log(entries);
+          entries.map((item, index) => {
+            if (item[1].name === "GOD MODE") {
+              entries.splice(index, 1);
+            }
+          });
           companyData.push(entries);
         })
         .then(() => this.setState({ companyData, baseData: companyData }));
@@ -43,6 +49,7 @@ class App extends Component {
   renderCompanyData = () => {
     let { companyData } = this.state;
     let date = moment(new Date()).format("ll");
+
     return companyData[0].map((item, index) => {
       return (
         <tr
