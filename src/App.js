@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { auth, db } from "./Auth";
 import Modal from "react-modal";
-import moment from "moment";
 import { CSVLink } from "react-csv";
 import "./App.css";
+import moment from "moment";
 
 const customStyles = {
   content: {
@@ -42,6 +42,7 @@ class App extends Component {
 
   renderCompanyData = () => {
     let { companyData } = this.state;
+    let date = moment(new Date()).format("ll");
     return companyData[0].map((item, index) => {
       return (
         <tr
@@ -55,7 +56,7 @@ class App extends Component {
           <td className="col-sm-4">{item[1].name}</td>
           <td className="col-sm-4">{item[0]}</td>
           <td className="col-sm-1">{item[1].tier}</td>
-          <td className="col-sm-2">Dec 17, 2018</td>
+          <td className="col-sm-2">{date}</td>
         </tr>
       );
     });
